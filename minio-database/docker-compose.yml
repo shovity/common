@@ -1,0 +1,21 @@
+services:
+  minio:
+    image: minio/minio
+    restart: always
+    command: server /data --console-address ":9001"
+    volumes:
+      - ./data:/data
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      MINIO_ACCESS_KEY: ${ACCESS_KEY}
+      MINIO_SECRET_KEY: ${SECRET_KEY}
+    logging:
+      options:
+        max-size: 5m
+
+networks:
+  backend:
+    name: backend
+    external: true

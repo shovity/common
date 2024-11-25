@@ -1,0 +1,5 @@
+http:
+  routers:
+    fallback:
+      rule: "PathPrefix(`/`)"
+      service: center-center-service@docker

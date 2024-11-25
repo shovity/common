@@ -1,0 +1,14 @@
+[Unit]
+Description=Docker Supervisor
+
+[Service]
+ExecStart=/bin/env node {app_dir}/app.js
+RestartSec=10
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=docker-supervisor
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target

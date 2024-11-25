@@ -1,0 +1,21 @@
+services:
+  traefik:
+    image: traefik:v2.10
+    ports:
+      - 2425:2425
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/etc/traefik/traefik.yml
+      - ./config:/config
+    restart: always
+    networks:
+      - backend
+    logging:
+      options:
+        max-size: 5m
+
+networks:
+  backend:
+    name: backend
+    external: true

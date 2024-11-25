@@ -1,0 +1,9 @@
+{
+  "name": "traefik-gateway",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "up": "docker compose up -d",
+    "down": "docker compose down"
+  }
+}

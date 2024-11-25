@@ -1,0 +1,12 @@
+api:
+  insecure: true
+
+providers:
+  docker:
+    defaultrule: 'PathPrefix(`/{{ regexSplit "-" .Name -1 | first | trim }}/`)'
+  file:
+    directory: /config
+
+entryPoints:
+  web:
+    address: ":2425"

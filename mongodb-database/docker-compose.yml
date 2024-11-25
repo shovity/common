@@ -1,0 +1,21 @@
+services:
+  mongodb:
+    image: mongo:7.0.8
+    volumes:
+      - ./data:/data/db
+    restart: always
+    networks:
+      - backend
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${PASSWORD}
+    logging:
+      options:
+        max-size: 50m
+
+networks:
+  backend:
+    name: backend
+    external: true

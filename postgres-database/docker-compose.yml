@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:16.3-alpine3.20
+    restart: always
+    environment:
+      - POSTGRES_USER=${USERNAME}
+      - POSTGRES_PASSWORD=${PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+networks:
+  backend:
+    external: true
