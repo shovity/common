@@ -1,0 +1,21 @@
+services:
+  nginx:
+    build: .
+    image: nginx
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - cache:/cache/nginx
+    logging:
+      options:
+        max-size: 50m
+
+volumes:
+  cache:
+
+networks:
+  backend:
+    name: backend
+    external: true
