@@ -2,15 +2,22 @@ services:
   kuma:
     image: louislam/uptime-kuma:1
     volumes:
-      - data:/app/data
+      - ./data:/app/data
     ports:
       - 8771:3001
     environment:
       UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN: true
     restart: always
+    networks:
+      - backend
     logging:
       options:
         max-size: 50m
+    labels:
+      - traefik.http.middlewares.kuma-stripprefix.stripprefix.prefixes=/kuma
+      - traefik.http.routers.kuma.middlewares=kuma-stripprefix
 
-volumes:
-  data:
+networks:
+  backend:
+    name: backend
+    external: true
