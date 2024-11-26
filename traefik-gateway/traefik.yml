@@ -9,4 +9,4 @@ providers:
 
 entryPoints:
   web:
-    address: ":2425"
+    address: ":3000"

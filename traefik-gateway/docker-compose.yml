@@ -2,7 +2,7 @@ services:
   traefik:
     image: traefik:v2.10
     ports:
-      - 2425:2425
+      - 2445:3000
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
