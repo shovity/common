@@ -2,18 +2,23 @@ services:
   minio:
     image: minio/minio
     restart: always
-    command: server /data --console-address ":9001"
+    command: server /data --address ":3000" --console-address ":9001"
     volumes:
       - ./data:/data
     ports:
-      - 9000:9000
+      - 3000:3000
       - 9001:9001
     environment:
       MINIO_ACCESS_KEY: ${ACCESS_KEY}
       MINIO_SECRET_KEY: ${SECRET_KEY}
+    networks:
+      - backend
     logging:
       options:
         max-size: 5m
+    labels:
+      - traefik.http.middlewares.minio-stripprefix.stripprefix.prefixes=/minio
+      - traefik.http.routers.minio.middlewares=minio-stripprefix
 
 networks:
   backend:

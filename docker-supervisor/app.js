@@ -2,44 +2,44 @@ const { exec } = require('node:child_process')
 const { create, Router, config } = require('eroc')
 
 const manager = {
-  log: async ({ service }) => {
+  log: async ({ home, service }) => {
     return await execute(`
-      cd ${config.services_path}/${service}-service
+      cd ${home}/${service}-service
       docker compose logs --tail=200
     `)
   },
 
-  release: async ({ service }) => {
+  release: async ({ home, service }) => {
     return await execute(`
-      cd ${config.services_path}/${service}-service
+      cd ${home}/${service}-service
       bash bin/release.sh
     `)
   },
 
-  up: async ({ service, scale }) => {
+  up: async ({ home, service, scale }) => {
     return await execute(`
-      cd ${config.services_path}/${service}-service
+      cd ${home}/${service}-service
       yarn up prod ${scale}
     `)
   },
 
-  down: async ({ service }) => {
+  down: async ({ home, service }) => {
     return await execute(`
-      cd ${config.services_path}/${service}-service
+      cd ${home}/${service}-service
       docker compose down
     `)
   },
 
-  restart: async ({ service }) => {
+  restart: async ({ home, service }) => {
     return await execute(`
-      cd ${config.services_path}/${service}-service
+      cd ${home}/${service}-service
       docker compose restart
     `)
   },
 
-  git_log_all: async () => {
+  git_log_all: async ({ home }) => {
     const raw = await execute(`
-      for service in $(ls ~/services)
+      for service in $(ls ${home})
       do
         cd ~/services/$service
         echo "__service===$service "
@@ -76,9 +76,9 @@ const manager = {
     return logs
   },
 
-  git_show: async ({ service, hash }) => {
+  git_show: async ({ home, service, hash }) => {
     return await execute(`
-      cd ${config.services_path}/${service}-service
+      cd ${home}/${service}-service
       git show ${hash}
     `)
   },
@@ -103,10 +103,13 @@ create(async (app) => {
     const command = req.gp('command')
     const payload = req.gp('payload', {})
     const key = req.gp('key')
+    const home = req.gp('home', config.home)
 
     const handle = manager[command]
     check(key === config.client, 'Invalid key')
     check(handle, 'Command not found')
+
+    payload.home = home
 
     return res.success(await handle(payload))
   })
