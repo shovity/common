@@ -14,6 +14,7 @@ cd ../mongodb-database
 yarn up
 
 cd ../nginx-gateway  
+docker compose build
 yarn up
 
 cd ../postgres-database  
