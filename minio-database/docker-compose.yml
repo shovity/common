@@ -4,7 +4,7 @@ services:
     restart: always
     command: server /data --address ":3000" --console-address ":9001"
     volumes:
-      - ./data:/data
+      - ${MOUNT_DATA}:/data
     ports:
       - 9000:3000
       - 9001:9001

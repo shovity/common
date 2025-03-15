@@ -4,7 +4,7 @@ services:
     command:
       ["redis-server", "--appendonly", "yes", "--requirepass", "${PASSWORD}"]
     volumes:
-      - ./data:/data
+      - ${MOUNT_DATA}:/data
     ports:
       - 6379:6379
     networks:

@@ -2,7 +2,7 @@ services:
   mongodb:
     image: mongo:7.0.8
     volumes:
-      - ./data:/data/db
+      - ${MOUNT_DATA}:/data/db
     restart: always
     networks:
       - backend
