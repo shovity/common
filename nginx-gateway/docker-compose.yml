@@ -7,6 +7,7 @@ services:
       - backend
     volumes:
       - ./conf.d:/etc/nginx/conf.d
+      - ./nginx.conf:/etc/nginx/nginx.conf
       - cache:/cache/nginx
     logging:
       options:
