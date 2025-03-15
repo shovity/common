@@ -3,7 +3,7 @@ services:
     image: traefik:v2.10
     ports:
       - ${PORT}:3000
-      - 8080:8080
+      - ${PORT_API}:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.yml:/etc/traefik/traefik.yml
