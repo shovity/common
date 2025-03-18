@@ -8,7 +8,7 @@ Restart=always
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=docker-supervisor
-User=ubuntu
+User={user}
 
 [Install]
 WantedBy=multi-user.target
