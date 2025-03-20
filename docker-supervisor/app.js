@@ -41,7 +41,7 @@ const manager = {
     const raw = await execute(`
       for service in $(ls ${home})
       do
-        cd ~/services/$service
+        cd ${home}/$service
         echo "__service===$service "
         git log -5
       done
