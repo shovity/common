@@ -8,10 +8,10 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     networks:
       - backend
-    restart: always
+    restart: unless-stopped
     logging:
       options:
-        max-size: 50m
+        max-size: 5m
 
   zookeeper:
     image: docker.io/bitnami/zookeeper:3-debian-10
@@ -21,10 +21,10 @@ services:
       - ALLOW_ANONYMOUS_LOGIN=yes
     networks:
       - backend
-    restart: always
+    restart: unless-stopped
     logging:
       options:
-        max-size: 50m
+        max-size: 5m
 
 networks:
   backend:

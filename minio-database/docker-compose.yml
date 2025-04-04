@@ -1,7 +1,7 @@
 services:
   minio:
     image: minio/minio
-    restart: always
+    restart: unless-stopped
     command: server /data --address ":3000" --console-address ":9001"
     volumes:
       - ${MOUNT_DATA}:/data

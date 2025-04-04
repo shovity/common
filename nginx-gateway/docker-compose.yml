@@ -2,7 +2,7 @@ services:
   nginx:
     build: .
     image: nginx
-    restart: always
+    restart: unless-stopped
     networks:
       - backend
     volumes:
@@ -11,7 +11,7 @@ services:
       - cache:/cache/nginx
     logging:
       options:
-        max-size: 50m
+        max-size: 5m
 
 volumes:
   cache:

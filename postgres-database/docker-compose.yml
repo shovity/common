@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16.3-alpine3.20
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=${USERNAME}
       - POSTGRES_PASSWORD=${PASSWORD}
@@ -9,6 +9,9 @@ services:
       - 5432:5432
     volumes:
       - ${MOUNT_DATA}:/var/lib/postgresql/data
+    logging:
+      options:
+        max-size: 5m
     networks:
       - backend
 

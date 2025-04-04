@@ -7,12 +7,12 @@ services:
       - 8771:3001
     environment:
       UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN: true
-    restart: always
+    restart: unless-stopped
     networks:
       - backend
     logging:
       options:
-        max-size: 50m
+        max-size: 5m
     labels:
       - traefik.http.middlewares.kuma-stripprefix.stripprefix.prefixes=/kuma
       - traefik.http.routers.kuma.middlewares=kuma-stripprefix

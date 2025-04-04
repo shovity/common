@@ -8,7 +8,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.yml:/etc/traefik/traefik.yml
       - ./config:/config
-    restart: always
+    restart: unless-stopped
     networks:
       - backend
     logging:

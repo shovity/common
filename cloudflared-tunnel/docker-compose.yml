@@ -1,0 +1,15 @@
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token ${TOKEN}
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 5m
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
+    external: true
