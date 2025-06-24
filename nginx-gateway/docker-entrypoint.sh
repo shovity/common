@@ -1,6 +1,7 @@
 #!/bin/bash
 
 nginx_watch () {
+  echo "Watching Nginx Configuration"
   while inotifywait --exclude .swp -e create -e modify -e delete -e move /etc/nginx/conf.d; do
     echo "Detected Nginx Configuration Change"
     echo "Executing: nginx -s reload"

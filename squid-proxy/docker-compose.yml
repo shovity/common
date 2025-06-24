@@ -1,0 +1,18 @@
+services:
+  squid:
+    image: ubuntu/squid:latest
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf
+    ports:
+      - 3128:3128
+    logging:
+      options:
+        max-size: 5m
+
+networks:
+  backend:
+    name: backend
+    external: true
