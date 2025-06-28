@@ -5,6 +5,14 @@ services:
       - kafka:/bitnami
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:SASL_PLAINTEXT,INTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,INTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,INTERNAL://kafka:9093
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=INTERNAL
+      - KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL=PLAIN
+      - KAFKA_CFG_SASL_ENABLED_MECHANISMS=PLAIN
+      - KAFKA_CLIENT_USERS=${USERNAME}
+      - KAFKA_CLIENT_PASSWORDS=${PASSWORD}
       - ALLOW_PLAINTEXT_LISTENER=yes
     networks:
       - backend
@@ -16,7 +24,7 @@ services:
       - 9092:9092
 
   zookeeper:
-    image: docker.io/bitnami/zookeeper:3-debian-10
+    image: bitnami/zookeeper:3-debian-10
     volumes:
       - zookeeper:/bitnami
     environment:
