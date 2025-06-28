@@ -12,6 +12,8 @@ services:
     logging:
       options:
         max-size: 5m
+    ports:
+      - 9092:9092
 
   zookeeper:
     image: docker.io/bitnami/zookeeper:3-debian-10
