@@ -2,14 +2,14 @@ services:
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     ports:
-      - 8080:8080
+      - ${PORT}:8080
     environment:
       DYNAMIC_CONFIG_ENABLED: true
       AUTH_TYPE: LOGIN_FORM
       SPRING_SECURITY_USER_NAME: ${USERNAME}
       SPRING_SECURITY_USER_PASSWORD: ${PASSWORD}
     volumes:
-      - kafka-ui:/etc/kafkaui
+      - ${MOUNT_DATA}:/etc/kafkaui
     networks:
       - backend
     restart: unless-stopped
@@ -21,6 +21,3 @@ networks:
   backend:
     name: backend
     external: true
-
-volumes:
-  kafka-ui:

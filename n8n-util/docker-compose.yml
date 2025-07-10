@@ -1,13 +1,13 @@
 services:
-  kuma:
-    image: louislam/uptime-kuma:1
-    volumes:
-      - ${MOUNT_DATA}:/app/data
+  n8n:
+    build: .
     ports:
-      - ${PORT}:${PORT}
+      - ${PORT}:5678
+    volumes:
+      - ${MOUNT_DATA}:/home/node/.n8n
     environment:
-      UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN: true
-      UPTIME_KUMA_PORT: ${PORT}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
     restart: unless-stopped
     networks:
       - backend

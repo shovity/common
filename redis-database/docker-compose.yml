@@ -6,7 +6,7 @@ services:
     volumes:
       - ${MOUNT_DATA}:/data
     ports:
-      - 6379:6379
+      - ${PORT}:6379
     networks:
       - backend
     restart: unless-stopped

@@ -1,20 +1,18 @@
 services:
   nginx:
     build: .
-    image: nginx
-    restart: unless-stopped
     networks:
       - backend
     volumes:
       - ./conf.d:/etc/nginx/conf.d
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - cache:/cache/nginx
+      - ${MOUNT_DATA}/cache:/cache/nginx
+    restart: unless-stopped
+    ports:
+      - ${PORT}:80
     logging:
       options:
         max-size: 5m
-
-volumes:
-  cache:
 
 networks:
   backend:

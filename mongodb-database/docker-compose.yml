@@ -3,14 +3,14 @@ services:
     image: mongo:7.0.8
     volumes:
       - ${MOUNT_DATA}:/data/db
-    restart: unless-stopped
     networks:
       - backend
-    ports:
-      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${PASSWORD}
+    ports:
+      - ${PORT}:27017
+    restart: unless-stopped
     logging:
       options:
         max-size: 5m
