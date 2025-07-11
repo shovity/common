@@ -1,6 +1,6 @@
 services:
   redis:
-    image: redis:alpine
+    image: redis:8.0.3-alpine
     command:
       ["redis-server", "--appendonly", "yes", "--requirepass", "${PASSWORD}"]
     volumes:
