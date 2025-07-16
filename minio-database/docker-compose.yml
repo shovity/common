@@ -6,8 +6,8 @@ services:
     volumes:
       - ${MOUNT_DATA}:/data
     ports:
-      - 9000:3000
-      - 9001:9001
+      - ${PORT}:3000
+      - ${PORT_CONSOLE}:9001
     environment:
       MINIO_ACCESS_KEY: ${ACCESS_KEY}
       MINIO_SECRET_KEY: ${SECRET_KEY}
