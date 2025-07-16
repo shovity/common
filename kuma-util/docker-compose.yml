@@ -4,10 +4,9 @@ services:
     volumes:
       - ${MOUNT_DATA}:/app/data
     ports:
-      - ${PORT}:${PORT}
+      - ${PORT}:3001
     environment:
       UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN: true
-      UPTIME_KUMA_PORT: ${PORT}
     restart: unless-stopped
     networks:
       - backend
