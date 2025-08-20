@@ -1,0 +1,18 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.10.0
+    volumes:
+      - ${MOUNT_DATA}:/qdrant/storage
+    networks:
+      - backend
+    ports:
+      - ${PORT}:6333
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 5m
+
+networks:
+  backend:
+    name: backend
+    external: true
