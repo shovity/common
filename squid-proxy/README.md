@@ -1,5 +1,9 @@
-# Squid proxy
+# Squid Proxy
 
-### Note
-
-- Default no auth
+```bash
+yarn up
+yarn down
+yarn user list
+yarn user add {username} {password}
+yarn remove {username}
+```

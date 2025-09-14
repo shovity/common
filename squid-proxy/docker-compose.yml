@@ -3,6 +3,7 @@ services:
     image: ubuntu/squid:latest
     volumes:
       - ./squid.conf:/etc/squid/squid.conf
+      - ./passwd:/etc/squid/passwd
     networks:
       - backend
     ports:

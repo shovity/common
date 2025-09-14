@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "up": "docker compose up -d",
-    "down": "docker compose down"
+    "down": "docker compose down",
+    "user": "bash manage_users.sh"
   }
 }
