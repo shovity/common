@@ -1,46 +1,47 @@
 services:
   kafka:
-    image: bitnami/kafka:2-debian-10
-    volumes:
-      - kafka:/bitnami
+    image: confluentinc/cp-kafka:8.0.0
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:SASL_PLAINTEXT,INTERNAL:PLAINTEXT
-      - KAFKA_CFG_LISTENERS=CLIENT://:${PORT},INTERNAL://:9093
-      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:${PORT},INTERNAL://kafka:9093
-      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=INTERNAL
-      - KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL=PLAIN
-      - KAFKA_CFG_SASL_ENABLED_MECHANISMS=PLAIN
-      - KAFKA_CLIENT_USERS=${USERNAME}
-      - KAFKA_CLIENT_PASSWORDS=${PASSWORD}
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    networks:
-      - backend
-    restart: unless-stopped
-    logging:
-      options:
-        max-size: 5m
-    ports:
-      - ${PORT}:${PORT}
+      KAFKA_NODE_ID: 1
 
-  zookeeper:
-    image: bitnami/zookeeper:3-debian-10
+      # Security & listeners
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT
+      KAFKA_LISTENERS: CONTROLLER://kafka:29093,PLAINTEXT://kafka:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      # What we tell clients
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+
+      # Storage & replication
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
+
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:29093
+
+      # Super users for SASL
+      # KAFKA_SUPER_USERS: "User:admin"
+      # KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka-server.conf"
+
+      CLUSTER_ID: MhU3OEVBNTcwNTJENDM2Qh
     volumes:
-      - zookeeper:/bitnami
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
+      # - ./kafka-server.conf:/etc/kafka-server.conf # Trouble with Configuration Error
+      - data:/var/lib/kafka/data
     networks:
       - backend
     restart: unless-stopped
     logging:
       options:
         max-size: 5m
+
+volumes:
+  data:
 
 networks:
   backend:
     name: backend
     external: true
-
-volumes:
-  kafka:
-  zookeeper:
