@@ -1,9 +1,10 @@
 {
-  "name": "ollama-platform",
+  "name": "ollama-server",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "up": "docker compose up -d",
-    "down": "docker compose down"
+    "down": "docker compose down",
+    "ollama": "bash bin/ollama.sh"
   }
 }

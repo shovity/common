@@ -1,0 +1,34 @@
+services:
+  ollama-ui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - ${PORT}:8080
+    volumes:
+      - ${MOUNT_DATA}:/app/backend/data
+    environment:
+      # Enable authentication
+      - ENABLE_SIGNUP=true
+      - ENABLE_LOGIN_FORM=true
+
+      # Optional: Set default admin user (first user will be admin)
+      - DEFAULT_USER_ROLE=admin
+
+      # Optional: Disable signup after first user (recommended for security)
+      # - ENABLE_SIGNUP=false
+
+      # Optional: Set session timeout (in seconds)
+      - SESSION_TIMEOUT=3600
+
+      # Connect to Ollama server
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
+    restart: unless-stopped
+    networks:
+      - backend
+    logging:
+      options:
+        max-size: 10m
+
+networks:
+  backend:
+    name: backend
+    external: true
