@@ -7,6 +7,13 @@
 
 PASSWD_FILE="./passwd"
 
+# Create password file if it doesn't exist
+if [ ! -f "$PASSWD_FILE" ]; then
+    echo "Creating new password file: $PASSWD_FILE"
+    touch "$PASSWD_FILE"
+    chmod 600 "$PASSWD_FILE"  # Secure permissions
+fi
+
 case "$1" in
     "add")
         if [ -z "$2" ] || [ -z "$3" ]; then

@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "up": "docker compose up -d",
-    "down": "docker compose down"
+    "down": "docker compose down",
+    "init": "bash bin/init.sh",
+    "create-client": "bash bin/create-client.sh"
   }
 }
