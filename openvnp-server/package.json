@@ -6,6 +6,8 @@
     "up": "docker compose up -d",
     "down": "docker compose down",
     "init-server": "bash bin/init-server.sh",
-    "create-client": "bash bin/create-client.sh"
+    "create-client": "bash bin/create-client.sh",
+    "remove-client": "bash bin/remove-client.sh",
+    "remove-passphrase": "bash bin/remove-passphrase.sh"
   }
 }
