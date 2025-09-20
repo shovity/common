@@ -1,0 +1,13 @@
+services:
+  openvpn:
+    image: kylemanna/openvpn
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - ${PORT}:1194/udp
+    volumes:
+      - ./data:/etc/openvpn
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 5m
