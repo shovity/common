@@ -5,7 +5,7 @@
   "scripts": {
     "up": "docker compose up -d",
     "down": "docker compose down",
-    "init": "bash bin/init.sh",
+    "init-server": "bash bin/init-server.sh",
     "create-client": "bash bin/create-client.sh"
   }
 }
