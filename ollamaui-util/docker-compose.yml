@@ -1,5 +1,5 @@
 services:
-  ollama-ui:
+  ollamaui:
     image: ghcr.io/open-webui/open-webui:main
     ports:
       - ${PORT}:8080

@@ -4,7 +4,7 @@ for path in *-service/; do
   echo "\n==== $service\n"
   # BEGIN
 
-  yarn down
+  docker compose start
   
   # END
   cd ..

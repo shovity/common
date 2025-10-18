@@ -1,0 +1,21 @@
+services:
+  grafana:
+    image: grafana/grafana:10.4.2
+    ports:
+      - ${PORT}:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=${USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${PASSWORD}
+    volumes:
+      - ${MOUNT_DATA}:/var/lib/grafana
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 5m
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
+    external: true

@@ -1,9 +1,9 @@
 {
-  "name": "ollama-ui",
+  "name": "grafana-dashboard",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "up": "docker compose up -d",
+    "up": "sh bin/up.sh",
     "down": "docker compose down"
   }
 }

@@ -1,4 +1,4 @@
-# Ollama UI
+# OllamaUI Util
 
 ```bash
 yarn up
