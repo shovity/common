@@ -1,5 +1,5 @@
 {
-  "name": "grafana-dashboard",
+  "name": "grafana-monitor",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
