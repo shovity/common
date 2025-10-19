@@ -1,5 +1,5 @@
 {
-  "name": "grafana-monitor",
+  "name": "promtail-logging",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {

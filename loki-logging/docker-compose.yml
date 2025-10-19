@@ -1,0 +1,19 @@
+services:
+  loki:
+    image: grafana/loki:3.1.1
+    user: root:root
+    command: -config.file=/etc/loki/config.yaml
+    volumes:
+      - ./data/loki:/loki
+      - ./config.yaml:/etc/loki/config.yaml:ro
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 5m
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
+    external: true
