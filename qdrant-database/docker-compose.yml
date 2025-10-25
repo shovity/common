@@ -8,6 +8,8 @@ services:
     ports:
       - ${PORT}:6333
     restart: unless-stopped
+    environment:
+      - QDRANT__SERVICE__API_KEY=${API_KEY}
     logging:
       options:
         max-size: 5m
