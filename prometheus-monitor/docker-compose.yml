@@ -1,0 +1,46 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      - backend
+    ports:
+      - ${PORT}:9090
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 5m
+
+  redisexporter:
+    image: oliver006/redis_exporter:latest
+    restart: unless-stopped
+    environment:
+      - REDIS_ADDR=redis://:ytivohs2@redis:6379
+    ports:
+      - "9121:9121"
+    networks:
+      - backend
+
+  mongodbexporter:
+    image: bitnami/mongodb-exporter:latest
+    restart: unless-stopped
+    environment:
+      - MONGODB_URI=mongodb://shovity:ytivohs2@mongodb:27017/admin
+    ports:
+      - "9216:9216"
+    networks:
+      - backend
+
+  kafkaexporter:
+    image: danielqsj/kafka-exporter:latest
+    restart: unless-stopped
+    command: --kafka.server=kafka:9092
+    ports:
+      - "9308:9308"
+    networks:
+      - backend
+
+networks:
+  backend:
+    external: true

@@ -1,15 +1,14 @@
 services:
-  qdrant:
-    image: qdrant/qdrant:latest
-    volumes:
-      - ${MOUNT_DATA}:/qdrant/storage
+  viettts:
+    image: viet-tts:latest
     networks:
       - backend
-    ports:
-      - ${PORT}:6333
-    restart: unless-stopped
     environment:
-      - QDRANT__SERVICE__API_KEY=${API_KEY}
+      - DEVICE=cpu # cpu or cuda
+      - PORT=7860
+    ports:
+      - 7860:7860
+    restart: unless-stopped
     logging:
       options:
         max-size: 5m

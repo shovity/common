@@ -1,10 +1,11 @@
 services:
   n8n:
-    build: .
+    image: n8nio/n8n:latest
     ports:
       - ${PORT}:5678
     volumes:
-      - ${MOUNT_DATA}:/home/node/.n8n
+      - ${MOUNT_DATA}/n8n:/home/node/.n8n
+      - ${MOUNT_DATA}/cache:/home/node/.cache/n8n
     environment:
       - WEBHOOK_URL=${WEBHOOK_URL}
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}

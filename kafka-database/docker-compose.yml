@@ -1,17 +1,34 @@
 services:
   kafka:
     image: confluentinc/cp-kafka:8.0.0
+    ports:
+      - "${KAFKA_EXTERNAL_PORT:-9093}:9093"
     environment:
       KAFKA_NODE_ID: 1
 
       # Security & listeners
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-      KAFKA_LISTENERS: CONTROLLER://kafka:29093,PLAINTEXT://kafka:9092
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT,EXTERNAL:SASL_PLAINTEXT
+      KAFKA_LISTENERS: CONTROLLER://kafka:29093,SASL_PLAINTEXT://kafka:9092,EXTERNAL://0.0.0.0:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: SASL_PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
 
       # What we tell clients
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: SASL_PLAINTEXT://kafka:9092,EXTERNAL://${KAFKA_EXTERNAL_HOST:-localhost}:${KAFKA_EXTERNAL_PORT:-9093}
+
+      # SASL Configuration
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+
+      # JAAS inline config (single line required)
+      KAFKA_LISTENER_NAME_SASL__PLAINTEXT_PLAIN_SASL_JAAS_CONFIG: org.apache.kafka.common.security.plain.PlainLoginModule required username="${KAFKA_ADMIN_USER}" password="${KAFKA_ADMIN_PASSWORD}" user_${KAFKA_ADMIN_USER}="${KAFKA_ADMIN_PASSWORD}";
+      KAFKA_LISTENER_NAME_EXTERNAL_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_LISTENER_NAME_EXTERNAL_PLAIN_SASL_JAAS_CONFIG: org.apache.kafka.common.security.plain.PlainLoginModule required username="${KAFKA_ADMIN_USER}" password="${KAFKA_ADMIN_PASSWORD}" user_${KAFKA_ADMIN_USER}="${KAFKA_ADMIN_PASSWORD}";
+
+      # Super user
+      KAFKA_SUPER_USERS: User:${KAFKA_ADMIN_USER}
+
+      # Required by Confluent image when SASL is enabled
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/dev/null"
 
       # Storage & replication
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -23,13 +40,8 @@ services:
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:29093
 
-      # Super users for SASL
-      # KAFKA_SUPER_USERS: "User:admin"
-      # KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka-server.conf"
-
       CLUSTER_ID: MhU3OEVBNTcwNTJENDM2Qh
     volumes:
-      # - ./kafka-server.conf:/etc/kafka-server.conf # Trouble with Configuration Error
       - data:/var/lib/kafka/data
     networks:
       - backend

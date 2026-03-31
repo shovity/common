@@ -4,6 +4,9 @@
   "license": "MIT",
   "scripts": {
     "up": "docker compose up -d",
-    "down": "docker compose down"
+    "down": "docker compose down",
+    "add-domain": "bash scripts/add-domain.sh",
+    "remove-domain": "bash scripts/remove-domain.sh",
+    "list-domains": "bash scripts/list-domains.sh"
   }
 }
