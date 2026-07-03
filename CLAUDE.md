@@ -54,7 +54,7 @@ Mỗi service folder chứa:
 
 ```
 service-name/
-├── docker-compose.yml
+├── compose.yaml
 ├── package.json        # scripts: up, down
 ├── .env               # secrets (gitignored)
 ├── .env.example       # template
@@ -86,7 +86,7 @@ networks:
 ## Khi Tạo Service Mới
 
 1. Tạo folder theo pattern `<name>-<type>/`
-2. Copy docker-compose.yml từ service tương tự
+2. Copy compose.yaml từ service tương tự
 3. Tạo package.json với scripts up/down
 4. Tạo .env.example với tất cả required vars
 5. Join network `backend`, set logging max-size: 5m
