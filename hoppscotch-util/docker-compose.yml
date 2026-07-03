@@ -1,0 +1,27 @@
+services:
+  hoppscotch:
+    image: hoppscotch/hoppscotch:latest
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - DATA_ENCRYPTION_KEY=${DATA_ENCRYPTION_KEY}
+      - VITE_BASE_URL=${BASE_URL}
+      - VITE_ADMIN_URL=${ADMIN_URL}
+      - VITE_BACKEND_GQL_URL=${BACKEND_URL}/graphql
+      - VITE_BACKEND_WS_URL=wss://hopp-api.sho.io.vn/graphql
+      - VITE_BACKEND_API_URL=${BACKEND_URL}/v1
+      - REDIRECT_URL=${BASE_URL}
+      - WHITELISTED_ORIGINS=${BASE_URL},${ADMIN_URL},${BACKEND_URL}
+      - MAILER_SMTP_ENABLE=false
+    restart: unless-stopped
+    networks:
+      - backend
+    logging:
+      options:
+        max-size: 5m
+
+networks:
+  backend:
+    name: backend
+    external: true
