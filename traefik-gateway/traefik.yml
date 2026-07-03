@@ -10,3 +10,13 @@ providers:
 entryPoints:
   web:
     address: ":3000"
+    # Trust X-Forwarded-* from the Cloudflare Tunnel (cloudflared) and other
+    # in-cluster proxies. Without this, Traefik overwrites X-Forwarded-Proto
+    # with the entrypoint scheme (http), so services see http even when the
+    # client reached Cloudflare over https.
+    forwardedHeaders:
+      trustedIPs:
+        - "127.0.0.1/32"
+        - "10.0.0.0/8"
+        - "172.16.0.0/12"
+        - "192.168.0.0/16"
