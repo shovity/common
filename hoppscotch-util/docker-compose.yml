@@ -1,3 +1,5 @@
+name: common
+
 services:
   hoppscotch:
     image: hoppscotch/hoppscotch:latest

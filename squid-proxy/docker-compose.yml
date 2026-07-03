@@ -1,3 +1,5 @@
+name: common
+
 services:
   squid:
     image: ubuntu/squid:latest

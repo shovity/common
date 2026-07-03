@@ -1,3 +1,5 @@
+name: common
+
 services:
   kafka:
     image: confluentinc/cp-kafka:8.0.0

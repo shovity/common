@@ -1,3 +1,5 @@
+name: common
+
 services:
   ollamaui:
     image: ghcr.io/open-webui/open-webui:main

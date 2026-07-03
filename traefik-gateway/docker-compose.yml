@@ -1,3 +1,5 @@
+name: common
+
 services:
   traefik:
     image: traefik:v2.10

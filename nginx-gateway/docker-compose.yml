@@ -1,3 +1,5 @@
+name: common
+
 services:
   nginx:
     build: .

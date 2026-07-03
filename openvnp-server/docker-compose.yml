@@ -1,3 +1,5 @@
+name: common
+
 services:
   openvpn:
     image: kylemanna/openvpn

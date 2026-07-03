@@ -1,3 +1,5 @@
+name: common
+
 services:
   ollama:
     image: ollama/ollama:latest

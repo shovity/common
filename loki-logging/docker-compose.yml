@@ -1,3 +1,5 @@
+name: common
+
 services:
   loki:
     image: grafana/loki:3.1.1

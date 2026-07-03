@@ -1,11 +1,9 @@
-for path in *-service/; do
+for path in */; do
   service="${path%/}"
-  cd $service
-  echo "\n==== $service\n"
-  # BEGIN
-
-  docker compose stop
-  
-  # END
-  cd ..
+  ( cd "$service" || exit
+    printf '\n==== %s\n' "$service"
+    # BEGIN
+    docker compose stop
+    # END
+  )
 done

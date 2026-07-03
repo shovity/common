@@ -1,3 +1,5 @@
+name: common
+
 services:
   grafana:
     image: grafana/grafana:10.4.2

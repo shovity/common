@@ -1,3 +1,5 @@
+name: common
+
 services:
   mongodb:
     image: mongo:7.0.8

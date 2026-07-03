@@ -1,3 +1,5 @@
+name: common
+
 services:
   redis:
     image: redis:8.0.3-alpine

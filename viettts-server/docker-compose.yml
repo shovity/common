@@ -1,3 +1,5 @@
+name: common
+
 services:
   viettts:
     image: viet-tts:latest
