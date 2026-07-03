@@ -66,8 +66,6 @@ Naming convention: `<name>-<type>/` với type: `database`, `gateway`, `monitor`
 ## Docker Compose Conventions
 
 ```yaml
-name: common
-
 services:
   name:
     restart: unless-stopped
