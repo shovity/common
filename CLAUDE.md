@@ -16,6 +16,16 @@ yarn down    # docker compose down
 
 ## Service Scripts
 
+### Backend Network (phải chạy trước mọi service)
+
+```bash
+./create-backend-network.sh   # idempotent: tạo network `backend` với subnet CỐ ĐỊNH
+```
+
+Subnet ghim cứng trong script — đừng tạo network bằng `docker network create backend`
+trần, Docker sẽ tự cấp dải khác và làm hỏng rule ufw cho phép container gọi các
+cổng publish trên host. Lý do đầy đủ ở đầu file script.
+
 ### Cloudflare Tunnel (Domain Management)
 
 ```bash

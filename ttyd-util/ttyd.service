@@ -1,0 +1,16 @@
+[Unit]
+Description=ttyd Web Terminal
+After=network.target
+
+[Service]
+EnvironmentFile={app_dir}/.env
+ExecStart=/usr/bin/ttyd -p ${PORT} -c ${USERNAME}:${PASSWORD} bash
+RestartSec=10
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ttyd
+User={user}
+
+[Install]
+WantedBy=multi-user.target

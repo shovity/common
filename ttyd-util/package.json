@@ -1,0 +1,10 @@
+{
+  "name": "ttyd-util",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "up": "bash bin/up.bash",
+    "down": "bash bin/down.bash"
+  }
+}
